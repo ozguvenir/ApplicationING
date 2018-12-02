@@ -65,9 +65,9 @@ class ProjectDaoTest {
         )
 
         val projects2 = listOf(
-            ProjectEntity(1, "Name", "FullName", "owner1"),
+            ProjectEntity(1, "Name", "FullName1", "owner1"),
             ProjectEntity(2, "Name2", "FullName2", "owner2"),
-            ProjectEntity(4, "Name3", "FullName3", "owner3")
+            ProjectEntity(4, "Name4", "FullName4", "owner4")
         )
         projectDao.insertAll(projects)
         projectDao.insertAll(projects2)
