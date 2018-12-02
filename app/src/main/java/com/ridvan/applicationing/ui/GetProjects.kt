@@ -11,10 +11,10 @@ import javax.inject.Inject
  */
 class GetProjects @Inject constructor(private val projectRepository: ProjectRepository) {
 
-    fun execute(): Single<List<ProjectData>> {
-        val projectList = projectRepository.getProjects()
-        return projectList.map { venueListModel: ProjectList? ->
-            val items = venueListModel?.items ?: emptyList()
+    fun execute(userName: String): Single<List<ProjectData>> {
+        val projectList = projectRepository.getProjects(userName)
+        return projectList.map { projectListModel: ProjectList? ->
+            val items = projectListModel?.items ?: emptyList()
             items.map {
                 ProjectData(
                     it.id,

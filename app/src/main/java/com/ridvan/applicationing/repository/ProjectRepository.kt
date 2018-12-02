@@ -8,5 +8,5 @@ import io.reactivex.Single
  */
 
 interface ProjectRepository {
-    fun getProjects(): Single<ProjectList>
+    fun getProjects(userName: String): Single<ProjectList>
 }

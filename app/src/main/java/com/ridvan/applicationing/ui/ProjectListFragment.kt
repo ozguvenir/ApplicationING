@@ -24,6 +24,7 @@ class ProjectListFragment : DaggerFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     lateinit var projectViewModel: ProjectViewModel
+    lateinit var userName: String
 
     private val adapter by lazy {
         val projectList = mutableListOf<ProjectData>()
@@ -55,15 +56,20 @@ class ProjectListFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecyclerView()
-
-        projectViewModel.init()
+        initViews()
     }
 
-    private fun initRecyclerView() {
+    private fun initViews() {
         layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
 
         recyclerView.adapter = adapter
+
+        projectViewModel.init()
+
+        getButton.setOnClickListener {
+            userName = editText.text.toString()
+            projectViewModel.getProjects(userName)
+        }
     }
 }

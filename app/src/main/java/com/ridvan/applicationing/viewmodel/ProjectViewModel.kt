@@ -16,7 +16,7 @@ class ProjectViewModel @Inject constructor(
     private val getProjects: GetProjects
 ) : ViewModel() {
 
-    val projectList: MutableLiveData<List<ProjectData>> = MutableLiveData()
+    private val projectList: MutableLiveData<List<ProjectData>> = MutableLiveData()
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val projects = mutableListOf<ProjectData>()
@@ -26,12 +26,11 @@ class ProjectViewModel @Inject constructor(
     }
 
     fun init() {
-        getProjects()
     }
 
-    fun getProjects() {
+    fun getProjects(userName: String) {
         compositeDisposable.add(
-            getProjects.execute()
+            getProjects.execute(userName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ projects ->

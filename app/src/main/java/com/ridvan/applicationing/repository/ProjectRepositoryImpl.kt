@@ -15,19 +15,19 @@ class ProjectRepositoryImpl(
     private val projectDao: ProjectDao
 ) : ProjectRepository {
 
-    override fun getProjects(): Single<ProjectList> {
+    override fun getProjects(userName: String): Single<ProjectList> {
         return Single.create<ProjectList> { emitter: SingleEmitter<ProjectList> ->
             if (true) { // TODO
-                loadProjectsFromNetwork(emitter)
+                loadProjectsFromNetwork(userName, emitter)
             } else {
                 loadOfflineProjects(emitter)
             }
         }
     }
 
-    private fun loadProjectsFromNetwork(emitter: SingleEmitter<ProjectList>) {
+    private fun loadProjectsFromNetwork(userName: String, emitter: SingleEmitter<ProjectList>) {
         try {
-            val projects = appService.getProjectDetails("ozguvenir").execute().body()
+            val projects = appService.getProjectDetails(userName).execute().body()
             if (projects != null) {
                 projectDao.insertAll(projects.items)
                 emitter.onSuccess(projects)
