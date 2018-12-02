@@ -1,5 +1,6 @@
 package com.ridvan.applicationing
 
+import com.ridvan.applicationing.di.component.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 
@@ -8,7 +9,7 @@ import dagger.android.support.DaggerApplication
  */
 class ApplicationING : DaggerApplication() {
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DaggerApplicationComponent.builder().create(this)
     }
 
 

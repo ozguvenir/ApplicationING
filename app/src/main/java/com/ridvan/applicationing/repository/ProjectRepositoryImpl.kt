@@ -44,12 +44,12 @@ class ProjectRepositoryImpl(
 
     private fun loadProjectsFromNetwork(page: Int, emitter: SingleEmitter<ProjectList>) {
         try {
-            val users = appService.getProjectDetails("ozguvenir").execute().body()
-            if (users != null) {
-                //venueDao.insertAll(users.items)
+            val projects = appService.getProjectDetails("ozguvenir").execute().body()
+            if (projects != null) {
+                //venueDao.insertAll(projects.items)
                 val currentTime = Calendar.getInstance().timeInMillis
                 preferencesHelper.saveLong(LAST_UPDATE_KEY + page, currentTime)
-                //emitter.onSuccess(users)
+                //emitter.onSuccess(projects)
             } else {
                 emitter.onError(Exception("No data received"))
             }
