@@ -1,7 +1,8 @@
-package com.ridvan.applicationing
+package com.ridvan.applicationing.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.ridvan.applicationing.R
 
 class MainActivity : AppCompatActivity() {
 
