@@ -17,71 +17,30 @@ class ProjectViewModel @Inject constructor(
 ) : ViewModel() {
 
     val projectList: MutableLiveData<List<ProjectData>> = MutableLiveData()
-    val showLoading: MutableLiveData<Boolean> = MutableLiveData()
-    val showError: MutableLiveData<Boolean> = MutableLiveData()
-
-    private var loading = false
-        set(value) {
-            field = value
-            if (value) {
-                if (page == 1) {
-                    showLoading.value = true
-                }
-            } else {
-                showLoading.value = false
-            }
-        }
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val projects = mutableListOf<ProjectData>()
 
-    private var page = 1
-    private var initialized = false
-
     init {
         projectList.value = projects
-        showError.value = false
     }
 
     fun init() {
-        if (!initialized) {
-            getProjects()
-            initialized = true
-        }
+        getProjects()
     }
 
-    fun getProjects(forced: Boolean = false) {
-        loading = true
-        val pageToRequest = if (forced) 1 else page
+    fun getProjects() {
         compositeDisposable.add(
-            getProjects.execute(pageToRequest, forced)
+            getProjects.execute()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ projects ->
-                    showError.value = false
-                    if (forced) {
-                        resetPaging()
-                    }
-                    if (page == 1) {
-                        this.projects.clear()
-                    }
                     this.projects.addAll(this.projects)
                     projectList.value = this.projects
-                    loading = false
-                    page++
                 },
                     {
-                        showError.value = true
-                        loading = false
-                        if (page == 1) {
-                            initialized = false
-                        }
                     })
         )
-    }
-
-    private fun resetPaging() {
-        page = 1
     }
 
     override fun onCleared() {

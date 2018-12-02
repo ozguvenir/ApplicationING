@@ -10,9 +10,9 @@ import io.reactivex.SingleEmitter
  * Created by ridvanozguvenir on 3.12.2018.
  */
 class TestProjectRepository : ProjectRepository {
-    override fun getProjects(page: Int, forced: Boolean): Single<ProjectList> {
+    override fun getProjects(): Single<ProjectList> {
         val projects = (1..10L).map {
-            val number = (page - 1) * 10 + it
+            val number = it
             ProjectEntity(it, "Project $number", "", "")
         }
 

@@ -11,8 +11,8 @@ import javax.inject.Inject
  */
 class GetProjects @Inject constructor(private val projectRepository: ProjectRepository) {
 
-    fun execute(page: Int, forced: Boolean): Single<List<ProjectData>> {
-        val projectList = projectRepository.getProjects(page, forced)
+    fun execute(): Single<List<ProjectData>> {
+        val projectList = projectRepository.getProjects()
         return projectList.map { venueListModel: ProjectList? ->
             val items = venueListModel?.items ?: emptyList()
             items.map {

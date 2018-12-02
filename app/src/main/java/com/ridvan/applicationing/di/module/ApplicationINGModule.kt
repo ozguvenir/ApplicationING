@@ -10,8 +10,6 @@ import com.ridvan.applicationing.repository.ProjectRepositoryImpl
 import com.ridvan.applicationing.service.ApplicationINGService
 import com.ridvan.applicationing.util.ApplicationINGConstants.Companion.BASE_URL
 import com.ridvan.applicationing.util.ApplicationINGConstants.Companion.DB_NAME
-import com.ridvan.applicationing.util.ConnectionHelper
-import com.ridvan.applicationing.util.PreferencesHelper
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -42,15 +40,11 @@ class ApplicationModule {
     @Singleton
     fun provideProjectRepository(
         retrofit: Retrofit,
-        database: AppDB,
-        connectionHelper: ConnectionHelper,
-        preferencesHelper: PreferencesHelper
+        database: AppDB
     ): ProjectRepository {
         return ProjectRepositoryImpl(
             retrofit.create(ApplicationINGService::class.java),
-            database.projectDao(),
-            connectionHelper,
-            preferencesHelper
+            database.projectDao()
         )
     }
 
@@ -58,13 +52,4 @@ class ApplicationModule {
     @Singleton
     fun provideDatabase(context: Context) =
         Room.databaseBuilder(context, AppDB::class.java, DB_NAME).build()
-
-
-    @Provides
-    @Singleton
-    fun provideConnectionHelper(context: Context) = ConnectionHelper(context)
-
-    @Provides
-    @Singleton
-    fun providePreferencesHelper(context: Context) = PreferencesHelper(context)
 }

@@ -46,10 +46,6 @@ class ProjectListAdapter(
         fun bind(project: ProjectData, listener: (ProjectData, View) -> Unit) = with(itemView) {
             textViewTitle.text = project.name
             textViewDescription.text = project.fullName
-            //userAvatar.loadUrl(user.profileImage)
-            //setOnClickListener { listener(user, userAvatar) }
-
-            //isLollipopOrAbove { userAvatar.transitionName = "transition${user.venueId}" }
         }
     }
 

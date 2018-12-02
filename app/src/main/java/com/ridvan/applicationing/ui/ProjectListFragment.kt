@@ -1,6 +1,5 @@
 package com.ridvan.applicationing.ui
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -8,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.ridvan.applicationing.databinding.FragmentProjectListBinding
 import com.ridvan.applicationing.util.ProjectListAdapter
 import com.ridvan.applicationing.viewmodel.ProjectData
@@ -39,20 +37,6 @@ class ProjectListFragment : DaggerFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         projectViewModel = ViewModelProviders.of(this, viewModelFactory).get(ProjectViewModel::class.java)
-
-        addObservers()
-    }
-
-    private fun addObservers() {
-        projectViewModel.showLoading.observe(this, Observer {
-            swipeRefreshLayout.isRefreshing = it != null && it
-        })
-
-        projectViewModel.showError.observe(this, Observer {
-            if (it == true && projectViewModel.projectList.value?.isNotEmpty() == true) {
-                Toast.makeText(context, "Error loading data", Toast.LENGTH_SHORT).show()
-            }
-        })
     }
 
     override fun onCreateView(
@@ -71,16 +55,9 @@ class ProjectListFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initSwipeRefreshLayout()
         initRecyclerView()
 
         projectViewModel.init()
-    }
-
-    private fun initSwipeRefreshLayout() {
-        swipeRefreshLayout.setOnRefreshListener {
-            projectViewModel.getProjects(true)
-        }
     }
 
     private fun initRecyclerView() {
