@@ -15,5 +15,5 @@ interface ProjectDao {
     fun getProjects(): List<ProjectEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(users: List<ProjectEntity>)
+    fun insertAll(projects: List<ProjectEntity>)
 }
