@@ -23,7 +23,7 @@ class ProjectListFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    lateinit var projectViewModel: ProjectViewModel
+    private lateinit var projectViewModel: ProjectViewModel
     lateinit var userName: String
 
     private val adapter by lazy {
@@ -64,8 +64,6 @@ class ProjectListFragment : DaggerFragment() {
         recyclerView.layoutManager = layoutManager
 
         recyclerView.adapter = adapter
-
-        projectViewModel.init()
 
         getButton.setOnClickListener {
             userName = editText.text.toString()

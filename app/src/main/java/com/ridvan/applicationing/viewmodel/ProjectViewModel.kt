@@ -25,15 +25,12 @@ class ProjectViewModel @Inject constructor(
         projectList.value = projects
     }
 
-    fun init() {
-    }
-
     fun getProjects(userName: String) {
         compositeDisposable.add(
             getProjects.execute(userName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ projects ->
+                .subscribe({
                     this.projects.addAll(this.projects)
                     projectList.value = this.projects
                 },
