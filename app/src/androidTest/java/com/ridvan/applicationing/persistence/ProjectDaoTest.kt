@@ -75,9 +75,9 @@ class ProjectDaoTest {
         val allProjects = projectDao.getProjects()
         val expectedProjects = listOf(
             ProjectEntity(4, "Name4", "FullName4", "owner4"),
-            ProjectEntity(1, "Name", "FullName1", "owner1"),
+            ProjectEntity(3, "Name3", "FullName3", "owner3"),
             ProjectEntity(2, "Name2", "FullName2", "owner2"),
-            ProjectEntity(3, "Name3", "FullName3", "owner3")
+            ProjectEntity(1, "Name", "FullName1", "owner1")
         )
 
         Assert.assertEquals(expectedProjects, allProjects)
